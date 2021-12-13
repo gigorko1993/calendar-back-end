@@ -19,7 +19,7 @@ const createTask = async (req, res, next) => {
   }
 };
 
-const getTransactions = async (req, res) => {
+const getTasks = async (req, res) => {
   try {
     const userId = req.user._id;
     const data = await Tasks.listTasks(userId, req.query);
@@ -36,7 +36,7 @@ const getTransactions = async (req, res) => {
 const removeTask = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const task = await Tasks.deleteTask(req.params.contactId, userId);
+    const task = await Tasks.deleteTask(req.params.ID, userId);
     if (task) {
       return res.status(HttpCode.OK).json({
         status: "success",
@@ -57,12 +57,12 @@ const removeTask = async (req, res, next) => {
 const updateTask = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const task = await Tasks.updateTask(req.params.contactId, req.body, userId);
+    const task = await Tasks.updateTask(req.params.ID, req.body, userId);
     if (contact) {
       return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,
-        data: { contact },
+        data: { task },
       });
     }
 
@@ -77,8 +77,8 @@ const updateTask = async (req, res, next) => {
 };
 
 module.exports = {
+  getTasks,
   createTask,
-  getTransactions,
   updateTask,
   removeTask,
 };
