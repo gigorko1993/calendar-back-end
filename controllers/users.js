@@ -6,18 +6,20 @@ require("dotenv").config();
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const registration = async (req, res, next) => {
-  const { email, password } = req.body;
-  const user = await Users.findByEmail(email);
-  if (user) {
-    return res.status(HttpCode.CONFLICT).json({
-      status: "error",
-      code: HttpCode.CONFLICT,
-      message: "Email is already exist",
-    });
-  }
   try {
-    const newUser = await Users.create({ password, email });
+    const { email, password } = req.body;
+    const user = await Users.findByEmail(email);
+    console.log("reg 1 check", user);
+    if (user) {
+      return res.status(HttpCode.CONFLICT).json({
+        status: "error",
+        code: HttpCode.CONFLICT,
+        message: "Email is already exist",
+      });
+    }
 
+    const newUser = await Users.create({ password, email });
+    console.log("reg 2 check", newUser);
     return res.status(HttpCode.CREATED).json({
       status: "succes",
       code: HttpCode.CREATED,

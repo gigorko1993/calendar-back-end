@@ -1,4 +1,4 @@
-const Task = require("../model/tasks");
+const { Task } = require("../model/tasks");
 const {
   CurrentMonth,
   CurrentYear,
