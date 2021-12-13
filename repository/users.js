@@ -17,8 +17,13 @@ const findByEmail = async (email) => {
   }
 };
 
+const findById = async (id) => {
+  return await User.findById(id);
+};
+
 module.exports = {
   create,
   updateToken,
   findByEmail,
+  findById,
 };

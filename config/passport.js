@@ -14,14 +14,14 @@ passport.use(
     try {
       const user = await Users.findById(payload.id);
       if (!user) {
-        return done(new Error("User not found"), false);
+        return done(new Error("User not found"));
       }
-      if (!user.accessToken) {
+      if (!user.token) {
         return done(null, false);
       }
       return done(null, user);
-    } catch (error) {
-      return done(error, false);
+    } catch (err) {
+      return done(err, false);
     }
   })
 );

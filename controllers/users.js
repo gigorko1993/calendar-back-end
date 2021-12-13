@@ -9,7 +9,6 @@ const registration = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await Users.findByEmail(email);
-    console.log("reg 1 check", user);
     if (user) {
       return res.status(HttpCode.CONFLICT).json({
         status: "error",
@@ -19,7 +18,6 @@ const registration = async (req, res, next) => {
     }
 
     const newUser = await Users.create({ password, email });
-    console.log("reg 2 check", newUser);
     return res.status(HttpCode.CREATED).json({
       status: "succes",
       code: HttpCode.CREATED,
@@ -62,7 +60,7 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
   const id = req.user._id;
   await Users.updateToken(id, null);
-  return res.status(HttpCode.NO_CONTENT).json();
+  return res.status(HttpCode.NO_CONTENT).json({});
 };
 
 module.exports = {
