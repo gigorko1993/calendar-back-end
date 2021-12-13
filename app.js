@@ -5,13 +5,12 @@ const helmet = require("helmet");
 
 const tasksRouter = require("./routes/tasks/tasks");
 const usersRouter = require("./routes/users/users");
-const { HttpCode } = require("./config/contants");
+const { HttpCode } = require("./config/constants");
 
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
-app.use(express.static());
 app.use(helmet());
 app.use(logger(formatsLogger));
 app.use(cors());

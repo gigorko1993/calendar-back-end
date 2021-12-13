@@ -1,6 +1,6 @@
 const passport = require("passport");
 require("../config/passport");
-const { HttpCode } = require("../config/contants");
+const { HttpCode } = require("../config/constants");
 
 const guard = (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (error, user) => {

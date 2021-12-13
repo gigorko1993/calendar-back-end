@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const { Schema, SchemaTypes, model } = mongoose;
 
 const taskSchema = new Schema(
   {
@@ -49,7 +49,7 @@ const taskSchema = new Schema(
   }
 );
 
-transactionSchema.pre("save", function (next) {
+taskSchema.pre("save", function (next) {
   const formatedDate = new Date(this.date);
   this.date = Date.parse(formatedDate);
   this.year = formatedDate.getFullYear();
@@ -58,6 +58,6 @@ transactionSchema.pre("save", function (next) {
   next();
 });
 
-const Task = model("transaction", taskSchema);
+const Task = model("task", taskSchema);
 
 module.exports = Task;
