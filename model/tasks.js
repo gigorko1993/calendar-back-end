@@ -19,19 +19,19 @@ const taskSchema = new Schema(
       type: SchemaTypes.ObjectId,
       ref: "user",
     },
-    date: {
-      type: String,
-      require: true,
-    },
-    day: {
-      type: Number,
-    },
-    month: {
-      type: Number,
-    },
-    year: {
-      type: Number,
-    },
+    // date: {
+    //   type: String,
+    //   require: true,
+    // },
+    // day: {
+    //   type: Number,
+    // },
+    // month: {
+    //   type: Number,
+    // },
+    // year: {
+    //   type: Number,
+    // },
   },
   {
     versionKey: false,
@@ -51,7 +51,6 @@ const taskSchema = new Schema(
 
 taskSchema.pre("save", function (next) {
   const formatedDate = new Date(this.date);
-  this.date = Date.parse(formatedDate);
   this.year = formatedDate.getFullYear();
   this.month = formatedDate.getMonth() + 1;
   this.day = formatedDate.getDay();

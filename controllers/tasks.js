@@ -3,9 +3,9 @@ const { HttpCode } = require("../config/constants");
 
 const createTask = async (req, res, next) => {
   try {
-    const { _id: userId } = req.user;
+    const userId = req.user._id;
 
-    const task = await Transaction.addTask({
+    const task = await Tasks.addTask({
       ...req.body,
       owner: userId,
     });
@@ -22,7 +22,7 @@ const createTask = async (req, res, next) => {
 const getTasks = async (req, res) => {
   try {
     const userId = req.user._id;
-    const data = await Tasks.listTasks(userId, req.query);
+    const data = await Tasks.listTasks(userId);
     return res.json({
       status: "success",
       code: HttpCode.OK,
@@ -58,7 +58,7 @@ const updateTask = async (req, res, next) => {
   try {
     const userId = req.user._id;
     const task = await Tasks.updateTask(req.params.ID, req.body, userId);
-    if (contact) {
+    if (task) {
       return res.status(HttpCode.OK).json({
         status: "success",
         code: HttpCode.OK,

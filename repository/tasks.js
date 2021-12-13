@@ -1,21 +1,8 @@
-const { Task } = require("../model/tasks");
-const {
-  CurrentMonth,
-  CurrentYear,
-  CurrentDay,
-} = require("../config/constants");
+const Task = require("../model/tasks");
 
-const listTasks = async (
-  userId,
-  year = CurrentYear,
-  month = CurrentMonth,
-  day = CurrentDay
-) => {
+const listTasks = async (userId) => {
   const result = await Task.find({
     owner: userId,
-    year: year,
-    month: month,
-    day: day,
   });
 
   return result;
@@ -26,17 +13,17 @@ const addTask = async (body) => {
   return result;
 };
 
-const deleteTask = async (req, res, next) => {
+const deleteTask = async (taskId, userId) => {
   const result = await Task.findOneAndRemove({
-    _id: contactId,
+    _id: taskId,
     owner: userId,
   });
   return result;
 };
 
-const updateTask = async (contactId, body, userId) => {
+const updateTask = async (taskId, body, userId) => {
   const result = await Task.findOneAndUpdate(
-    { _id: contactId, owner: userId },
+    { _id: taskId, owner: userId },
     { ...body },
     { new: true }
   );
