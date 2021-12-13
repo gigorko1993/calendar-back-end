@@ -3,10 +3,6 @@ const { Schema } = mongoose;
 
 const taskSchema = new Schema(
   {
-    date: {
-      type: Date,
-      required: true,
-    },
     start: {
       type: Number,
       required: true,
@@ -22,6 +18,19 @@ const taskSchema = new Schema(
     owner: {
       type: SchemaTypes.ObjectId,
       ref: "user",
+    },
+    date: {
+      type: String,
+      require: true,
+    },
+    day: {
+      type: Number,
+    },
+    month: {
+      type: Number,
+    },
+    year: {
+      type: Number,
     },
   },
   {
@@ -39,6 +48,15 @@ const taskSchema = new Schema(
     },
   }
 );
+
+transactionSchema.pre("save", function (next) {
+  const formatedDate = new Date(this.date);
+  this.date = Date.parse(formatedDate);
+  this.year = formatedDate.getFullYear();
+  this.month = formatedDate.getMonth() + 1;
+  this.day = formatedDate.getDay();
+  next();
+});
 
 const Task = model("transaction", taskSchema);
 

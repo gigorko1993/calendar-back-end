@@ -34,6 +34,7 @@ const RateLimitVariables = {
 
 const CurrentYear = new Date().getFullYear();
 const CurrentMonth = new Date().getMonth() + 1;
+const CurrentDay = new Date().getDay();
 
 module.exports = {
   ValidUserName,
@@ -43,4 +44,5 @@ module.exports = {
   ValidPassword,
   CurrentYear,
   CurrentMonth,
+  CurrentDay,
 };
