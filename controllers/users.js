@@ -63,8 +63,28 @@ const logout = async (req, res, next) => {
   return res.status(HttpCode.NO_CONTENT).json({});
 };
 
+const current = async (req, res, next) => {
+  try {
+    const { email, token, _id, name } =
+      req.user;
+    return res.status(HttpCode.OK).json({
+      status: "success",
+      code: HttpCode.OK,
+      data: {
+        email,
+        token,
+        id: _id,
+        name,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   registration,
   login,
   logout,
+  current,
 };
