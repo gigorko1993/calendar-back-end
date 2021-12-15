@@ -1,9 +1,17 @@
 const Task = require("../model/tasks");
 
 const listTasks = async (userId) => {
-  const result = await Task.find({
-    owner: userId,
-  });
+  const result = await Task.find(
+    {
+      owner: userId,
+    },
+    ["id", "start", "duration", "title"],
+    {
+      sort: {
+        start: 1,
+      },
+    }
+  );
 
   return result;
 };
